@@ -2,10 +2,13 @@ from fastapi import FastAPI, HTTPException
 import requests
 from bs4 import BeautifulSoup
 import json
+from jwtsign import sign, decode
 
 # Cria uma instância do FastAPI
 app = FastAPI()
 
+email = 'teste@mail.com'
+senha = 'testesenha'
 
 @app.get("/{id_aba}/{id_ano}")
 def read_root(id_aba: str, id_ano: int, id_categoria: str = None):
@@ -122,3 +125,10 @@ def consultar_url(id_aba: str, id_ano: int, id_categoria: str = None):
         #print("JSON gerado com sucesso!")
     else:
         raise HTTPException(status_code=500, detail="erro ao analisar e extrair tabela")
+
+@app.post('/signup')
+def sign_up():
+
+
+def auth_test(decoded: str = Depends(decode)):
+    return decoded
