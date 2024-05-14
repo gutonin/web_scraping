@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -126,8 +127,13 @@ def consultar_url(id_aba: str, id_ano: int, id_categoria: str = None):
     else:
         raise HTTPException(status_code=500, detail="erro ao analisar e extrair tabela")
 
+class SignUpSchema(BaseModel):
+    name: str = 'algumnome'
+    email: str = 'mail@mail.com'
+    password: str = 'umasenha'
+
 @app.post('/signup')
-def sign_up():
+def sign_up(request: SignUpSchema):
 
 
 def auth_test(decoded: str = Depends(decode)):
